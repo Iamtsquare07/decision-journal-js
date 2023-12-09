@@ -1,0 +1,483 @@
+@import url('https://fonts.googleapis.com/css2?family=Croissant+One&display=swap');
+
+body {
+    padding: 10px;
+    background-color: #000014;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    color: #c2c5ff;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba(255, 217, 0, 0.61);
+    font-family: 'Croissant One', cursive;
+    font-size: 5vw;
+}
+
+#inputbox {
+    color: #dedeff;
+    margin: auto;
+    width: 85%;
+    height: auto;
+    margin-top: 0px;
+    padding: 5px 20px 10px 20px;
+    border-radius: 10px;
+}
+
+
+#decisionList {
+    padding-bottom: 15vw;
+    padding-top: 5px;
+    border-radius: 5px;
+}
+
+.decisionStateValue {
+    color: #e5e5fd;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.output {
+    margin: auto;
+    width: 90%;
+    max-height: 400px;
+    /* Set a maximum height for scrolling */
+    height: auto;
+    background-color: #00006e;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px 1px #1b37b4;
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+}
+
+.output ul {
+    padding-left: 5px;
+}
+
+.decisionHeader {
+    text-align: center;
+    color: #75c7f7;
+    font-size: 5vw;
+}
+
+#delbtn {
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+}
+
+#delbtn:hover {
+    background-color: blue;
+}
+
+#sLett {
+    color: blue;
+}
+
+
+.p1 {
+    text-align: justify;
+    padding-bottom: 10px;
+    line-height: 25px;
+    padding: 0px;
+}
+
+#decision {
+    border-radius: 10px;
+    border: none;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+#decision:focus,
+select:focus {
+    outline: none;
+}
+
+#decision:hover {
+    background-color: rgb(233, 240, 241);
+    font-weight: 400;
+}
+
+.submit-field {
+    margin: auto;
+    text-align: center;
+}
+
+#smbtn {
+    color: white;
+    background-color: #5b5bf7bb;
+    border-radius: 7px;
+    padding: 5px;
+    border: 1px solid #6464f7bb;
+    margin: auto;
+    width: 100px;
+    cursor: pointer;
+}
+
+#smbtn:hover {
+    background-color: #5b5bf7fb;
+}
+
+#clearBox {
+    width: 100px;
+}
+
+#clear,
+#reset {
+    background-color: #5b5bf7bb;
+    border-radius: 7px;
+    border: 1px solid #6464f7bb;
+    text-align: left;
+    padding: 5px;
+    display: none;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+
+#clear:hover,
+#reset:hover {
+    background-color: rgb(32, 16, 250);
+}
+
+#probody {
+    text-align: justify;
+    font-size: 17px;
+}
+
+ul>li {
+    list-style: none;
+    padding: 3px;
+    font-size: 17px;
+
+}
+
+
+.input-fields {
+    text-align: left;
+}
+
+#inputs,
+select {
+    margin: auto;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #5b5bf7bb;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    margin-top: 3px;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+input[type="date"] {
+    border-radius: 10px;
+    border: none;
+    margin: auto;
+    padding: 10px;
+    width: fit-content;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    /* This removes the default focus outline, you can customize it further if needed */
+    border: none;
+}
+
+select {
+    padding: 10px;
+    text-align: left;
+}
+
+button {
+    cursor: pointer;
+}
+
+li>button {
+    background-color: #6464faf3;
+    border-radius: 5px;
+    border: 1px solid #7171fcf3;
+    font-size: 15px;
+    color: #e2e4ff;
+    padding: 3px;
+    margin-left: 5px;
+}
+
+.deletedecision,
+.editdecision {
+    font-size: 10px;
+}
+
+li>i {
+    font-size: 17px;
+}
+
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+    background: #3551f185;
+    /* Color of the scrollbar thumb */
+    border-radius: 3px;
+    /* Rounded corners of the thumb */
+}
+
+/* Style the scrollbar track when hovering over it */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Start of celebration*/
+#celebration {
+    display: none;
+}
+
+.celebrate {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.celebrate>div {
+    border: 2px solid #f5cc06;
+    position: absolute;
+    opacity: 0;
+    animation: solta_celebrate .2s ease-in-out .5s forwards;
+}
+
+.celebrate>div.f1 {
+    left: 20%;
+    top: 40%;
+}
+
+.celebrate>div.f2 {
+    left: 15%;
+    top: 70%;
+}
+
+.celebrate>div.f3 {
+    right: 20%;
+    top: 40%;
+}
+
+.celebrate>div.f4 {
+    right: 15%;
+    top: 70%;
+}
+
+.celebrate>div span {
+    width: 6px;
+    height: 6px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: estoura_celebrate 0.1s ease-in-out .3s forwards;
+}
+
+.celebrate>div span:nth-child(1) {
+    transform: rotate(0deg);
+}
+
+.celebrate>div span:nth-child(2) {
+    transform: rotate(120deg);
+}
+
+.celebrate>div span:nth-child(3) {
+    transform: rotate(240deg);
+}
+
+.celebrate>div span:before {
+    content: '';
+    width: 2px;
+    height: 50px;
+    display: block;
+    background: #e40434;
+    position: absolute;
+    top: -60px;
+    left: 2px;
+}
+
+.celebrate>div span:after {
+    content: '';
+    width: 2px;
+    height: 25px;
+    display: block;
+    background: #f5cc06;
+    position: absolute;
+    bottom: -60px;
+    left: 2px;
+}
+
+.celebrate>div span i:before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    display: block;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: -15px;
+    left: 10px;
+}
+
+.celebrate>div span i:after {
+    content: '';
+    width: 3px;
+    height: 3px;
+    display: block;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: -15px;
+    right: 10px;
+}
+
+#congratulations {
+    display: none;
+    position: fixed;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #eeeeee52;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 2s ease;
+}
+
+#congratulations.show {
+    background-color: #001986;
+    display: block;
+}
+
+@keyframes solta_celebrate {
+    0% {
+        margin-top: 100%;
+        opacity: 0;
+        width: 2px;
+        height: 30px;
+        display: block;
+        border-radius: 50%;
+    }
+
+    75% {
+        margin-top: 0%;
+        opacity: 1;
+        width: 2px;
+        height: 30px;
+        display: block;
+        border-radius: 50%;
+    }
+
+    80% {
+        margin-top: 0px;
+        margin-left: 0px;
+        opacity: 1;
+        width: 10px;
+        height: 10px;
+        display: block;
+        border-radius: 50%;
+        transform: scale(0.2);
+    }
+
+    100% {
+        opacity: 1;
+        width: 10px;
+        height: 10px;
+        display: block;
+        border-radius: 50%;
+        transform: scale(1);
+    }
+}
+
+@keyframes estoura_celebrate {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* End of Congratulations */
+
+.decision-tracking {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 400px) {
+    #decision {
+        width: 40%;
+    }
+
+
+    h2 {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    #inputbox {
+        min-width: 500px;
+        width: 50%;
+    }
+
+    .output {
+        min-width: 500px;
+        width: 55%;
+        padding: 50px 20px 50px 20px;
+        min-height: 250px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    #decision {
+        width: 60%;
+    }
+
+    .decisionHeader {
+        font-size: 22px;
+    }
+
+    .deletedecision,
+    .editdecision {
+        font-size: 12px;
+    }
+
+    #congratulations {
+        padding: 30px 45px 30px 45px;
+        font-weight: 500;
+        font-size: large;
+        border-radius: 30px;
+    }
+}
