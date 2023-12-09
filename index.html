@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/9783530849.js" crossorigin="anonymous"></script>
+    <title>Decision Journal</title>
+</head>
+
+<body>
+    <h1>Decision Journal</h1>
+    <div id="inputbox">
+        <div class="info">
+            <p class="p1">Track your decisions with the James Clear' Atomic Habits Decision journal.
+                Record your major decisions to review them each week, month or year to know what you got right or wrong.
+                Track your best decisions to replicate them in the future, try not to judge yourself in the process<span
+                    style="font-weight: bold;color:#9fcdf8;" id="user"></span>, simply act as an observer.
+            </p>
+        </div>
+        <div class="input-fields">
+            <label for="decision">Decision:</label>
+            <div id="inputs">
+                <input id="decision" type="text" placeholder="Eg: Rejected contract from 'Name of org'" value=""
+                    required>
+                <input id="decisionDate" type="date" min="" value="" required>
+            </div>
+            <label for="state">State:</label><br>
+            <select name="" id="state">
+                <option value="Neutral">Neutral</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Bad">Bad</option>
+                <option value="Worst">Worst</option>
+            </select><br>
+            <div class="submit-field">
+                <button id="smbtn">Submit</button><br>
+            </div>
+            <span id="message"></span>
+        </div>
+    </div>
+    <br>
+    <div id='decisionList'>
+        <div class='output'>
+            <h3 class="decisionHeader">Add to your decisions list</h3>
+            <ul id="probody"></ul>
+            <div id="lists"></div>
+
+            <div id="clearBox">
+                <button id="clear">Clear List</button>
+                <button id="reset">Reset All Data</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="celebration">
+        <div class="celebrate">
+            <div class="f1">
+                <span><i></i></span>
+                <span><i></i></span>
+                <span><i></i></span>
+            </div>
+            <div class="f2">
+                <span><i></i></span>
+                <span><i></i></span>
+                <span><i></i></span>
+            </div>
+            <div class="f3">
+                <span><i></i></span>
+                <span><i></i></span>
+                <span><i></i></span>
+            </div>
+            <div class="f4">
+                <span><i></i></span>
+                <span><i></i></span>
+                <span><i></i></span>
+            </div>
+        </div><br>
+
+    </div>
+    <div id="congratulations"></div>
+    <div class="decision-tracking">
+        <div class="decision-questions">
+            <h2>Journal Questions</h2>
+            <ul>
+                <li>What is going well this year?</li>
+
+                <li>What is not going so well this year?</li>
+
+                <li>What did I learn from these successes and failures?</li>
+
+                <li>What are the core values that drive my life and work?</li>
+
+                <li>How am I living and working with integrity right now?</li>
+
+                <li>How can I set a higher standard in the future?</li>
+            </ul>
+        </div>
+    </div>
+    <script src="./desjour.js"></script>
+</body>
+
+</html>
