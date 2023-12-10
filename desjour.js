@@ -88,8 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const decisionText = input.value.trim();
     const decisionState = document.getElementById("state");
-
-    if (returnState(decisionState.value) === "+") {
+  
+    if (returnState(decisionState.value) === `<i class="fa-solid fa-check-double"></i>`) {
+      console.log("Success")
       const congratulations = document.getElementById("congratulations");
       if (!firstPositveCount) {
         firstPositveCount = true;
