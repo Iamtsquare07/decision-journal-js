@@ -88,9 +88,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const decisionText = input.value.trim();
     const decisionState = document.getElementById("state");
-  
-    if (returnState(decisionState.value) === `<i class="fa-solid fa-check-double"></i>`) {
-      console.log("Success")
+
+    if (
+      returnState(decisionState.value) ===
+      `<i class="fa-solid fa-check-double"></i>`
+    ) {
+      console.log("Success");
       const congratulations = document.getElementById("congratulations");
       if (!firstPositveCount) {
         firstPositveCount = true;
@@ -225,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function createdecisionListItem(decisionText, stateValue) {
     // Create a new decision list item
     const listItem = document.createElement("li");
+    listItem.className = "mainList";
     const stateValueElement = document.createElement("span");
     stateValueElement.innerHTML = stateValue;
     stateValueElement.className = "decisionStateValue";
@@ -232,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
     listItem.innerHTML = `
         <span class="decisionText">${decisionText}</span>
         <button class="editdecision"><i class="fas fa-pen-square"></i> Edit</button>
-        <button class="deletedecision"><i class="fas fa-trash-alt"></i> Delete</button>
+        <button class="deletedecision"><i class="fas fa-trash-alt"></i></button>
       `;
 
     listItem.insertBefore(stateValueElement, listItem.firstChild);
@@ -300,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
           listItem.querySelector(".decisionText").textContent;
         const decisionState = listItem.querySelector(
           ".decisionStateValue"
-        ).textContent;
+        ).innerHTML;
 
         decisionsForDate.push({ text: decisionText, state: decisionState });
       }
@@ -309,6 +313,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     localStorage.setItem("decisions", JSON.stringify(decisions));
+
+    // Check if all dates have no values
+    let allDatesEmpty = true;
+
+    const allDates = Object.keys(decisions);
+
+    for (const dateKey of allDates) {
+      const dateValues = decisions[dateKey];
+
+      if (dateValues && dateValues.length > 0) {
+        allDatesEmpty = false;
+        break;
+      }
+    }
+
+    if (allDatesEmpty) {
+      clearList();
+    }
   }
 
   function formatDateForLocalStorage(dateString) {
