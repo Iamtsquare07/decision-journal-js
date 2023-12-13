@@ -257,6 +257,32 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+    listItem.querySelector(".decisionStateValue").addEventListener("click", () => {
+      const decisionSpan = listItem.querySelector(".decisionStateValue");
+      console.log(decisionSpan.innerHTML)
+      function checkDecisionState() {
+        
+        if(decisionSpan.innerHTML === `<i class="fa-solid fa-check-double"></i>`) {
+          return "Excellent"
+        }else if (decisionSpan.innerHTML === `<i class="fa-solid fa-check"></i>`) {
+          return "Good"
+        } else if (decisionSpan.innerHTML === `<i class="fa-regular fa-face-meh"></i>`) {
+          return "Bad"
+        } else if (decisionSpan.innerHTML === `<i class="fa-solid fa-face-meh"></i>`) {
+          return "Worst"
+        } else {
+          return "Neutral"
+        }
+      }
+      
+      const editedState = prompt("How was the decision: E/G/B/W?", checkDecisionState());
+      if (editedText !== null) {
+        decisionSpan.textContent = editedState;
+        // Save decisions to localStorage after editing a decision
+        savedecisionsToLocalStorage();
+      }
+    });
+
     return listItem;
   }
 
