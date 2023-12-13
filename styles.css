@@ -216,9 +216,24 @@ li>button {
     margin-left: 5px;
 }
 
+.mainList {
+    display: flex;
+    align-items: center;
+}
+
+.decisionText {
+    margin-left: 10px;
+}
+
 .deletedecision,
 .editdecision {
     font-size: 10px;
+    margin-left: 10px;
+}
+
+.deletedecision {
+    background: none;
+    border: none;
 }
 
 li>i {
@@ -433,6 +448,14 @@ li>i {
     justify-content: center;
 }
 
+#clearBox {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
 @media (max-width: 400px) {
     #decision {
         width: 40%;
@@ -472,6 +495,14 @@ li>i {
     .deletedecision,
     .editdecision {
         font-size: 12px;
+    }
+
+    .deletedecision {
+        display: none;
+    }
+
+    .mainList:hover>.deletedecision {
+        display: block;
     }
 
     #congratulations {
