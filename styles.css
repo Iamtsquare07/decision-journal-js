@@ -236,6 +236,10 @@ li>button {
     border: none;
 }
 
+i:hover {
+    cursor: pointer;
+}
+
 li>i {
     font-size: 17px;
 }
