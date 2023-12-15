@@ -257,31 +257,79 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    listItem.querySelector(".decisionStateValue").addEventListener("click", () => {
-      const decisionSpan = listItem.querySelector(".decisionStateValue");
-      console.log(decisionSpan.innerHTML)
-      function checkDecisionState() {
-        
-        if(decisionSpan.innerHTML === `<i class="fa-solid fa-check-double"></i>`) {
-          return "Excellent"
-        }else if (decisionSpan.innerHTML === `<i class="fa-solid fa-check"></i>`) {
-          return "Good"
-        } else if (decisionSpan.innerHTML === `<i class="fa-regular fa-face-meh"></i>`) {
-          return "Bad"
-        } else if (decisionSpan.innerHTML === `<i class="fa-solid fa-face-meh"></i>`) {
-          return "Worst"
-        } else {
-          return "Neutral"
+    listItem
+      .querySelector(".decisionStateValue")
+      .addEventListener("click", () => {
+        const decisionSpan = listItem.querySelector(".decisionStateValue");
+        console.log(decisionSpan.innerHTML);
+        function checkDecisionState() {
+          if (
+            decisionSpan.innerHTML ===
+            `<i class="fa-solid fa-check-double"></i>`
+          ) {
+            return 1;
+          } else if (
+            decisionSpan.innerHTML === `<i class="fa-solid fa-check"></i>`
+          ) {
+            return 2;
+          } else if (
+            decisionSpan.innerHTML === `<i class="fa-regular fa-face-meh"></i>`
+          ) {
+            return 3;
+          } else if (
+            decisionSpan.innerHTML === `<i class="fa-solid fa-face-meh"></i>`
+          ) {
+            return 4;
+          } else {
+            return 5;
+          }
         }
-      }
-      
-      const editedState = prompt("How was the decision: E/G/B/W?", checkDecisionState());
-      if (editedText !== null) {
-        decisionSpan.textContent = editedState;
-        // Save decisions to localStorage after editing a decision
-        savedecisionsToLocalStorage();
-      }
-    });
+
+        function checkDecisionStateValue(editedState) {
+          if (Number(editedState) === 1) {
+            return `<i class="fa-solid fa-check-double"></i>`;
+          } else if (Number(editedState) === 2) {
+            return `<i class="fa-solid fa-check"></i>`;
+          } else if (Number(editedState) === 3) {
+            return `<i class="fa-regular fa-face-meh"></i>`;
+          } else if (Number(editedState) === 4) {
+            return `<i class="fa-solid fa-face-meh"></i>`;
+          } else if (editedState.toLowerCase() === "excellent") {
+            return `<i class="fa-solid fa-check-double"></i>`;
+          } else if (editedState.toLowerCase() === "good") {
+            return `<i class="fa-solid fa-check"></i>`;
+          } else if (editedState.toLowerCase() === "bad") {
+            return `<i class="fa-regular fa-face-meh"></i>`;
+          } else if (editedState.toLowerCase() === "worst") {
+            return `<i class="fa-solid fa-face-meh"></i>`;
+          } else {
+            alert("Please select a valid choice.");
+            return null;
+          }
+        }
+
+        let isValidInput = false;
+        let editedState;
+
+        while (!isValidInput) {
+          editedState = prompt(
+            "How was the decision? Enter number 1:Excellent 2:Good 3:Bad/ 4:Worst",
+            checkDecisionState()
+          );
+
+          if (editedState !== null) {
+            const result = checkDecisionStateValue(editedState);
+            if (result !== null) {
+              isValidInput = true;
+              decisionSpan.innerHTML = result;
+              // Save decisions to localStorage after editing a decision
+              savedecisionsToLocalStorage();
+            }
+          } else {
+            isValidInput = true;
+          }
+        }
+      });
 
     return listItem;
   }
@@ -342,6 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Check if all dates have no values
     let allDatesEmpty = true;
+    console.log(decisions);
 
     const allDates = Object.keys(decisions);
 
