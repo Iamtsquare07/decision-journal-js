@@ -441,16 +441,51 @@ function submitSurvey() {
   const integrity = document.getElementById("integrity").value;
   const higherStandard = document.getElementById("higherStandard").value;
 
-  // You can handle the survey data as needed, such as sending it to a server or logging it.
-  console.log("Going Well:", goingWell);
-  console.log("Not Going Well:", notGoingWell);
-  console.log("Lessons Learned:", lessonsLearned);
-  console.log("Core Values:", coreValues);
-  console.log("Integrity:", integrity);
-  console.log("Higher Standard:", higherStandard);
+  const surveyData = {
+    goingWell,
+    notGoingWell,
+    lessonsLearned,
+    coreValues,
+    integrity,
+    higherStandard,
+  };
 
-  // You can also add additional logic or actions here.
+  localStorage.setItem("yearEndSurvey", JSON.stringify(surveyData));
 
-  // For simplicity, this example just alerts a success message.
   alert("Survey submitted successfully!");
+
+  document.getElementById("surveyForm").reset();
 }
+
+function displaySavedResponses() {
+  const savedResponses = localStorage.getItem("yearEndSurvey");
+  const responseDisplay = document.getElementById("responseDisplay");
+
+  if (savedResponses) {
+    const surveyData = JSON.parse(savedResponses);
+
+    let html = "<h3>Your Saved Responses:</h3>";
+    for (const key in surveyData) {
+      html += `<p><strong>${key}:</strong> ${surveyData[key]}</p>`;
+    }
+
+    html += '<button onclick="editResponses()">Edit Responses</button>';
+    responseDisplay.innerHTML = html;
+  } else {
+    responseDisplay.innerHTML = "<p>No saved surveys yet.</p>";
+  }
+}
+
+function editResponses() {
+  const savedResponses = localStorage.getItem("yearEndSurvey");
+  const surveyData = JSON.parse(savedResponses);
+
+  for (const key in surveyData) {
+    const textarea = document.getElementById(key);
+    if (textarea) {
+      textarea.value = surveyData[key];
+    }
+  }
+}
+
+displaySavedResponses();
