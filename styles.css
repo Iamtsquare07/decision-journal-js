@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Croissant+One&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     padding: 10px;
     background-color: #000014;
     width: 100%;
     height: 100vh;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     overflow-y: auto;
     color: #c2c5ff;
@@ -66,6 +70,7 @@ h1 {
     /* Enable vertical scrolling */
 }
 
+
 .output ul {
     padding-left: 5px;
 }
@@ -74,6 +79,7 @@ h1 {
     text-align: center;
     color: #75c7f7;
     font-size: 5vw;
+    margin-bottom: 25px;
 }
 
 #delbtn {
@@ -479,6 +485,7 @@ li>i {
     height: 100px;
     outline: none;
     border-radius: 5px;
+    padding: 10px;
 }
 
 #surveyForm>button {
@@ -493,6 +500,13 @@ li>i {
 
 #surveyForm>button:hover {
     background-color: #45a049;
+}
+
+#savedResponses {
+    margin-top: 30px;
+    box-shadow: 1px 1px 5px 1px #1b37b4;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 /* End of Survey styles */
@@ -520,6 +534,10 @@ li>i {
         width: 50%;
         padding: 50px 20px 50px 20px;
         min-height: 250px;
+    }
+
+    .decision-tracking {
+        padding: 20px;
     }
 
     h1 {
