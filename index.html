@@ -14,7 +14,8 @@
     <div id="inputbox">
         <div class="info">
             <p class="p1">Monitor your choices using James Clear's Atomic Habits Decision Journal. Log significant
-                decisions for weekly, monthly, or yearly review to recognise your successes and mistakes. Keep a record of
+                decisions for weekly, monthly, or yearly review to recognise your successes and mistakes. Keep a record
+                of
                 your most successful decisions to replicate them in the future. And please <span
                     style="font-weight: bold;color:#9fcdf8;" id="user"></span>, try not to judge yourself in the
                 process, simply act as an observer.
@@ -81,22 +82,30 @@
 
     </div>
     <div id="congratulations"></div>
+    <h2 id="observatory--header">Observatory Survey</h2>
     <div class="decision-tracking">
         <div class="decision-questions">
-            <h2>Journal Questions</h2>
-            <ul>
-                <li>What is going well this year?</li>
+            <form id="surveyForm">
+                <label for="goingWell">What is going well this year?</label>
+                <textarea id="goingWell" name="goingWell" required></textarea>
 
-                <li>What is not going so well this year?</li>
+                <label for="notGoingWell">What is not going so well this year?</label>
+                <textarea id="notGoingWell" name="notGoingWell" required></textarea>
 
-                <li>What did I learn from these successes and failures?</li>
+                <label for="lessonsLearned">What did you learn from these successes and failures?</label>
+                <textarea id="lessonsLearned" name="lessonsLearned" required></textarea>
 
-                <li>What are the core values that drive my life and work?</li>
+                <label for="coreValues">What are the core values that drive your life and work?</label>
+                <textarea id="coreValues" name="coreValues" required></textarea>
 
-                <li>How am I living and working with integrity right now?</li>
+                <label for="integrity">How are you living and working with integrity right now?</label>
+                <textarea id="integrity" name="integrity" required></textarea>
 
-                <li>How can I set a higher standard in the future?</li>
-            </ul>
+                <label for="higherStandard">How can you set a higher standard in the future?</label>
+                <textarea id="higherStandard" name="higherStandard" required></textarea>
+
+                <button type="button" onclick="submitSurvey()">Submit Survey</button>
+            </form>
         </div>
     </div>
     <script src="./desjour.js"></script>
