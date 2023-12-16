@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (
       returnState(decisionState.value) ===
-      `<i class="fa-solid fa-check-double"></i>`
+      `<i class="fa-solid fa-face-laugh-beam"></i>`
     ) {
       console.log("Success");
       const congratulations = document.getElementById("congratulations");
@@ -144,13 +144,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function returnState(state) {
     if (state === "Excellent") {
-      return `<i class="fa-solid fa-check-double"></i>`;
+      return `<i class="fa-solid fa-face-laugh-beam"></i>`;
     } else if (state === "Good") {
-      return `<i class="fa-solid fa-check"></i>`;
+      return `<i class="fa-solid fa-face-smile-beam"></i>`;
     } else if (state === "Bad") {
-      return `<i class="fa-regular fa-face-meh"></i>`;
-    } else if (state === "Worst") {
       return `<i class="fa-solid fa-face-meh"></i>`;
+    } else if (state === "Worst") {
+      return `<i class="fa-solid fa-face-sad-tear"></i>`;
     } else {
       return `<i class="fa-regular fa-face-smile"></i>`;
     }
@@ -265,19 +265,21 @@ document.addEventListener("DOMContentLoaded", function () {
         function checkDecisionState() {
           if (
             decisionSpan.innerHTML ===
-            `<i class="fa-solid fa-check-double"></i>`
+            `<i class="fa-solid fa-face-laugh-beam"></i>`
           ) {
             return 1;
           } else if (
-            decisionSpan.innerHTML === `<i class="fa-solid fa-check"></i>`
+            decisionSpan.innerHTML ===
+            `<i class="fa-solid fa-face-smile-beam"></i>`
           ) {
             return 2;
           } else if (
-            decisionSpan.innerHTML === `<i class="fa-regular fa-face-meh"></i>`
+            decisionSpan.innerHTML === `<i class="fa-solid fa-face-meh"></i>`
           ) {
             return 3;
           } else if (
-            decisionSpan.innerHTML === `<i class="fa-solid fa-face-meh"></i>`
+            decisionSpan.innerHTML ===
+            `<i class="fa-solid fa-face-sad-tear"></i>`
           ) {
             return 4;
           } else {
@@ -287,21 +289,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function checkDecisionStateValue(editedState) {
           if (Number(editedState) === 1) {
-            return `<i class="fa-solid fa-check-double"></i>`;
+            return `<i class="fa-solid fa-face-laugh-beam"></i>`;
           } else if (Number(editedState) === 2) {
-            return `<i class="fa-solid fa-check"></i>`;
+            return `<i class="fa-solid fa-face-smile-beam"></i>`;
           } else if (Number(editedState) === 3) {
-            return `<i class="fa-regular fa-face-meh"></i>`;
+            return `<i class="fa-solid fa-face-meh"></i>`;
           } else if (Number(editedState) === 4) {
-            return `<i class="fa-solid fa-face-meh"></i>`;
+            return `<i class="fa-solid fa-face-sad-tear"></i>`;
           } else if (editedState.toLowerCase() === "excellent") {
-            return `<i class="fa-solid fa-check-double"></i>`;
+            return `<i class="fa-solid fa-face-laugh-beam"></i>`;
           } else if (editedState.toLowerCase() === "good") {
-            return `<i class="fa-solid fa-check"></i>`;
+            return `<i class="fa-solid fa-face-smile-beam"></i>`;
           } else if (editedState.toLowerCase() === "bad") {
-            return `<i class="fa-regular fa-face-meh"></i>`;
-          } else if (editedState.toLowerCase() === "worst") {
             return `<i class="fa-solid fa-face-meh"></i>`;
+          } else if (editedState.toLowerCase() === "worst") {
+            return `<i class="fa-solid fa-face-sad-tear"></i>`;
           } else {
             alert("Please select a valid choice.");
             return null;
@@ -429,4 +431,26 @@ function capitalizeFirstLetter(text) {
 
   // Join the capitalized words back together
   return capitalizedWords.join(" ");
+}
+
+function submitSurvey() {
+  const goingWell = document.getElementById("goingWell").value;
+  const notGoingWell = document.getElementById("notGoingWell").value;
+  const lessonsLearned = document.getElementById("lessonsLearned").value;
+  const coreValues = document.getElementById("coreValues").value;
+  const integrity = document.getElementById("integrity").value;
+  const higherStandard = document.getElementById("higherStandard").value;
+
+  // You can handle the survey data as needed, such as sending it to a server or logging it.
+  console.log("Going Well:", goingWell);
+  console.log("Not Going Well:", notGoingWell);
+  console.log("Lessons Learned:", lessonsLearned);
+  console.log("Core Values:", coreValues);
+  console.log("Integrity:", integrity);
+  console.log("Higher Standard:", higherStandard);
+
+  // You can also add additional logic or actions here.
+
+  // For simplicity, this example just alerts a success message.
+  alert("Survey submitted successfully!");
 }
