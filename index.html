@@ -85,6 +85,7 @@
     <h2 id="observatory--header">Observatory Survey</h2>
     <div class="decision-tracking">
         <div class="decision-questions">
+            <h3>Take a quick survey to evaluate your progress</h3>
             <form id="surveyForm">
                 <label for="goingWell">What is going well this year?</label>
                 <textarea id="goingWell" name="goingWell" required></textarea>
@@ -106,6 +107,11 @@
 
                 <button type="button" onclick="submitSurvey()">Submit Survey</button>
             </form>
+        </div>
+
+        <div id="savedResponses">
+            <h2>Your Saved Surveys</h2>
+            <div id="responseDisplay"></div>
         </div>
     </div>
     <script src="./desjour.js"></script>
