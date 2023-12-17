@@ -127,6 +127,10 @@ select:focus {
     text-align: center;
 }
 
+button.active {
+    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
 #smbtn {
     color: white;
     background-color: #5b5bf7bb;
@@ -488,7 +492,8 @@ li>i {
     padding: 10px;
 }
 
-#surveyForm>button {
+#surveyForm>button,
+#savedResponses button {
     margin-top: 20px;
     padding: 10px;
     background-color: #4CAF50;
