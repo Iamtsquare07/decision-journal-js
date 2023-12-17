@@ -25,6 +25,10 @@ h1 {
     font-size: 5vw;
 }
 
+h3 {
+    text-align: center;
+}
+
 #observatory--header {
     font-size: 4vw;
     color: rgba(255, 217, 0, 0.61);
@@ -127,7 +131,7 @@ select:focus {
     text-align: center;
 }
 
-button.active {
+button:active {
     box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
