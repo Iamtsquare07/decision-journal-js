@@ -362,6 +362,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (userSpan.textContent.length < 1) {
       userSpan.textContent = ` ${capitalizeFirstLetter(user)}`;
     }
+
+    if (localStorage.getItem("lastEdited"))
+      document.getElementById(
+        "log-messages"
+      ).innerText = `Last edited: ${localStorage.getItem("lastEdited")}`;
   }
 
   function savedecisionsToLocalStorage() {
@@ -475,6 +480,7 @@ function submitSurvey() {
 
   // Reset the form
   document.getElementById("surveyForm").reset();
+  localStorage.setItem("lastEdited", getCurrentDate());
 }
 
 function displaySavedResponses() {
@@ -484,14 +490,15 @@ function displaySavedResponses() {
   if (savedResponses) {
     const surveyData = JSON.parse(savedResponses);
 
-    let html = `<h3 style="text-align:center;">Your Responses:</h3>`;
+    let html = `<h3>Your Responses:</h3>`;
     for (const key in surveyData) {
       html += `<p><strong>${processSurveyKeys(key)}:</strong> ${
         surveyData[key]
       }</p>`;
     }
 
-    html += '<button onclick="editResponses()">Edit Responses</button>';
+    html += `<button onclick="editResponses()">Edit Responses</button><br/>
+    <p id="log-messages"></p>`;
     responseDisplay.innerHTML = html;
   } else {
     responseDisplay.innerHTML = "<p>No saved surveys yet.</p>";
@@ -524,6 +531,29 @@ function editResponses() {
       textarea.value = surveyData[key];
     }
   }
+
+  const messagesLogs = document.getElementById("log-messages");
+
+  messagesLogs.innerText =
+    "Your responses were successfully loaded into the text fields. You can now edit.";
+  setTimeout(() => {
+    const lastEdited = localStorage.getItem("lastEdited") || getCurrentDate();
+    messagesLogs.innerText = `Last edited: ${lastEdited}`;
+    document.getElementById("goingWell").focus();
+    localStorage.setItem("lastEdited", lastEdited);
+  }, 3000);
+}
+
+function getCurrentDate() {
+  const currentDate = new Date();
+
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const year = currentDate.getFullYear();
+
+  const formattedDate = `${month}/${day}/${year}`;
+
+  return formattedDate;
 }
 
 displaySavedResponses();
