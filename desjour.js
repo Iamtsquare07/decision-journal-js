@@ -434,6 +434,7 @@ function capitalizeFirstLetter(text) {
 }
 
 function submitSurvey() {
+  // Get form values
   const goingWell = document.getElementById("goingWell").value;
   const notGoingWell = document.getElementById("notGoingWell").value;
   const lessonsLearned = document.getElementById("lessonsLearned").value;
@@ -441,6 +442,22 @@ function submitSurvey() {
   const integrity = document.getElementById("integrity").value;
   const higherStandard = document.getElementById("higherStandard").value;
 
+  // Perform basic validation
+  if (
+    !goingWell ||
+    !notGoingWell ||
+    !lessonsLearned ||
+    !coreValues ||
+    !integrity ||
+    !higherStandard
+  ) {
+    alert(
+      `Please fill out all the fields before submitting the survey. You can enter 'No comments' on fields you don't have an answer for yet.`
+    );
+    return; // Exit the function if validation fails
+  }
+
+  // Create survey data object
   const surveyData = {
     goingWell,
     notGoingWell,
@@ -450,10 +467,13 @@ function submitSurvey() {
     higherStandard,
   };
 
+  // Save survey data to localStorage
   localStorage.setItem("yearEndSurvey", JSON.stringify(surveyData));
 
+  // Display success message
   alert("Survey submitted successfully!");
 
+  // Reset the form
   document.getElementById("surveyForm").reset();
 }
 
@@ -464,15 +484,33 @@ function displaySavedResponses() {
   if (savedResponses) {
     const surveyData = JSON.parse(savedResponses);
 
-    let html = "<h3>Your Saved Responses:</h3>";
+    let html = `<h3 style="text-align:center;">Your Responses:</h3>`;
     for (const key in surveyData) {
-      html += `<p><strong>${key}:</strong> ${surveyData[key]}</p>`;
+      html += `<p><strong>${processSurveyKeys(key)}:</strong> ${
+        surveyData[key]
+      }</p>`;
     }
 
     html += '<button onclick="editResponses()">Edit Responses</button>';
     responseDisplay.innerHTML = html;
   } else {
     responseDisplay.innerHTML = "<p>No saved surveys yet.</p>";
+  }
+}
+
+function processSurveyKeys(key) {
+  if (key === "goingWell") {
+    return "Things Going Well";
+  } else if (key === "notGoingWell") {
+    return "Things Not Going Well";
+  } else if (key === "lessonsLearned") {
+    return "Lesson You've Learned";
+  } else if (key === "coreValues") {
+    return "Your Core Values";
+  } else if (key === "integrity") {
+    return "Your Integrity";
+  } else if (key === "higherStandard") {
+    return "Your Higher Standards";
   }
 }
 
