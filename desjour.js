@@ -544,16 +544,39 @@ function editResponses() {
   }, 3000);
 }
 
+function formatTime(minutes) {
+  if (minutes === 1) {
+    return '1 minute ago';
+  } else {
+    return `${minutes} minutes ago`;
+  }
+}
+
 function getCurrentDate() {
   const currentDate = new Date();
+
+  const hours = currentDate.getHours().toString().padStart(2, "0");
+  const minutes = currentDate.getMinutes().toString().padStart(2, "0");
 
   const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
   const day = currentDate.getDate().toString().padStart(2, "0");
   const year = currentDate.getFullYear();
 
+  const formattedTime = `${hours}:${minutes}`;
   const formattedDate = `${month}/${day}/${year}`;
 
-  return formattedDate;
+  const now = new Date();
+  const diffInMinutes = Math.floor((now - currentDate) / (1000 * 60));
+
+  if (now.toDateString() === currentDate.toDateString()) {
+    if (diffInMinutes <= 30) {
+      return formatTime(diffInMinutes);
+    } else {
+      return `Today at ${formattedTime}`;
+    }
+  } else {
+    return `${formattedTime} ${formattedDate}`;
+  }
 }
 
 displaySavedResponses();
