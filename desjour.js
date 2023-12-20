@@ -366,7 +366,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("lastEdited"))
       document.getElementById(
         "log-messages"
-      ).innerText = `Last edited: ${localStorage.getItem("lastEdited")}`;
+      ).innerText = `Last edited: ${localStorage.getItem("lastEdited")
+  }`;
   }
 
   function savedecisionsToLocalStorage() {
@@ -439,7 +440,6 @@ function capitalizeFirstLetter(text) {
 }
 
 function submitSurvey() {
-  // Get form values
   const goingWell = document.getElementById("goingWell").value;
   const notGoingWell = document.getElementById("notGoingWell").value;
   const lessonsLearned = document.getElementById("lessonsLearned").value;
@@ -447,22 +447,11 @@ function submitSurvey() {
   const integrity = document.getElementById("integrity").value;
   const higherStandard = document.getElementById("higherStandard").value;
 
-  // Perform basic validation
-  if (
-    !goingWell ||
-    !notGoingWell ||
-    !lessonsLearned ||
-    !coreValues ||
-    !integrity ||
-    !higherStandard
-  ) {
-    alert(
-      `Please fill out all the fields before submitting the survey. You can enter 'No comments' on fields you don't have an answer for yet.`
-    );
-    return; // Exit the function if validation fails
+  if (!goingWell || !notGoingWell || !lessonsLearned || !coreValues || !integrity || !higherStandard) {
+    alert(`Please fill out all the fields before submitting the survey.`);
+    return;
   }
 
-  // Create survey data object
   const surveyData = {
     goingWell,
     notGoingWell,
@@ -472,17 +461,18 @@ function submitSurvey() {
     higherStandard,
   };
 
-  // Save survey data to localStorage
   localStorage.setItem("yearEndSurvey", JSON.stringify(surveyData));
 
-  // Display success message
+  const lastEdited = getCurrentDate();
+  localStorage.setItem("lastEdited", lastEdited);
+
   alert("Survey submitted successfully!");
 
-  // Reset the form
   document.getElementById("surveyForm").reset();
-  localStorage.setItem("lastEdited", getCurrentDate());
+  displaySavedResponses();
 }
 
+// Display saved responses and last edited time
 function displaySavedResponses() {
   const savedResponses = localStorage.getItem("yearEndSurvey");
   const responseDisplay = document.getElementById("responseDisplay");
@@ -496,6 +486,9 @@ function displaySavedResponses() {
         surveyData[key]
       }</p>`;
     }
+
+    const lastEdited = localStorage.getItem("lastEdited");
+    html += `<p>Last edited: ${lastEdited}</p>`;
 
     html += `<button onclick="editResponses()">Edit Responses</button><br/>
     <p id="log-messages"></p>`;
@@ -537,11 +530,11 @@ function editResponses() {
   messagesLogs.innerText =
     "Your responses were successfully loaded into the text fields. You can now edit.";
   setTimeout(() => {
-    const lastEdited = getCurrentDate();
+    const lastEdited = localStorage.getItem("lastEdited") || getCurrentDate();
     messagesLogs.innerText = `Last edited: ${lastEdited}`;
     document.getElementById("goingWell").focus();
     localStorage.setItem("lastEdited", lastEdited);
-  }, 3000);
+  }, 1000);
 }
 
 function formatTime(minutes) {
@@ -552,31 +545,36 @@ function formatTime(minutes) {
   }
 }
 
+function formatDate(inputDate) {
+  const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = inputDate.getDate().toString().padStart(2, "0");
+  const year = inputDate.getFullYear();
+
+  return `${month}/${day}/${year}`;
+}
+
 function getCurrentDate() {
   const currentDate = new Date();
 
   const hours = currentDate.getHours().toString().padStart(2, "0");
   const minutes = currentDate.getMinutes().toString().padStart(2, "0");
 
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-  const day = currentDate.getDate().toString().padStart(2, "0");
-  const year = currentDate.getFullYear();
-
   const formattedTime = `${hours}:${minutes}`;
-  const formattedDate = `${month}/${day}/${year}`;
 
   const now = new Date();
-  const diffInMinutes = Math.floor((now - currentDate) / (1000 * 60));
+  const diffInMinutes = Math.floor((now - currentDate) / (60 * 1000));
 
   if (now.toDateString() === currentDate.toDateString()) {
     if (diffInMinutes <= 30) {
       return formatTime(diffInMinutes);
     } else {
-      return `Today at ${formattedTime}`;
+      return `${formattedTime}`;
     }
   } else {
-    return `${formattedTime} ${formattedDate}`;
+    const formattedDate = formatDate(currentDate);
+    return `${formattedDate}`;
   }
 }
+
 
 displaySavedResponses();
