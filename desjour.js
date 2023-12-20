@@ -537,7 +537,7 @@ function editResponses() {
   messagesLogs.innerText =
     "Your responses were successfully loaded into the text fields. You can now edit.";
   setTimeout(() => {
-    const lastEdited = localStorage.getItem("lastEdited") || getCurrentDate();
+    const lastEdited = getCurrentDate();
     messagesLogs.innerText = `Last edited: ${lastEdited}`;
     document.getElementById("goingWell").focus();
     localStorage.setItem("lastEdited", lastEdited);
