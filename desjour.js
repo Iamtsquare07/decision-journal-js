@@ -440,6 +440,7 @@ function capitalizeFirstLetter(text) {
 }
 
 function submitSurvey() {
+  // Get form values
   const goingWell = document.getElementById("goingWell").value;
   const notGoingWell = document.getElementById("notGoingWell").value;
   const lessonsLearned = document.getElementById("lessonsLearned").value;
@@ -447,11 +448,22 @@ function submitSurvey() {
   const integrity = document.getElementById("integrity").value;
   const higherStandard = document.getElementById("higherStandard").value;
 
-  if (!goingWell || !notGoingWell || !lessonsLearned || !coreValues || !integrity || !higherStandard) {
-    alert(`Please fill out all the fields before submitting the survey.`);
-    return;
+  // Perform basic validation
+  if (
+    !goingWell ||
+    !notGoingWell ||
+    !lessonsLearned ||
+    !coreValues ||
+    !integrity ||
+    !higherStandard
+  ) {
+    alert(
+      `Please fill out all the fields before submitting the survey. You can enter 'No comments' on fields you don't have an answer for yet.`
+    );
+    return; // Exit the function if validation fails
   }
 
+  // Create survey data object
   const surveyData = {
     goingWell,
     notGoingWell,
@@ -461,18 +473,18 @@ function submitSurvey() {
     higherStandard,
   };
 
+  // Save survey data to localStorage
   localStorage.setItem("yearEndSurvey", JSON.stringify(surveyData));
 
-  const lastEdited = getCurrentDate();
-  localStorage.setItem("lastEdited", lastEdited);
-
+  // Display success message
   alert("Survey submitted successfully!");
 
+  // Reset the form
   document.getElementById("surveyForm").reset();
-  displaySavedResponses();
+  localStorage.setItem("lastEdited", getCurrentDate());
+  updateLastEdited();
 }
 
-// Display saved responses and last edited time
 function displaySavedResponses() {
   const savedResponses = localStorage.getItem("yearEndSurvey");
   const responseDisplay = document.getElementById("responseDisplay");
@@ -486,9 +498,6 @@ function displaySavedResponses() {
         surveyData[key]
       }</p>`;
     }
-
-    const lastEdited = localStorage.getItem("lastEdited");
-    html += `<p>Last edited: ${lastEdited}</p>`;
 
     html += `<button onclick="editResponses()">Edit Responses</button><br/>
     <p id="log-messages"></p>`;
@@ -529,12 +538,14 @@ function editResponses() {
 
   messagesLogs.innerText =
     "Your responses were successfully loaded into the text fields. You can now edit.";
-  setTimeout(() => {
-    const lastEdited = localStorage.getItem("lastEdited") || getCurrentDate();
-    messagesLogs.innerText = `Last edited: ${lastEdited}`;
-    document.getElementById("goingWell").focus();
-    localStorage.setItem("lastEdited", lastEdited);
-  }, 1000);
+  
+  // Update last edited time initially
+  updateLastEdited();
+
+  document.getElementById("goingWell").focus();
+  
+  // Set up the recurring update every minute
+  setInterval(updateLastEdited, 60000);
 }
 
 function formatTime(minutes) {
@@ -542,6 +553,29 @@ function formatTime(minutes) {
     return '1 minute ago';
   } else {
     return `${minutes} minutes ago`;
+  }
+}
+
+function formatTimeDifference(minutes) {
+  if (minutes === 1) {
+    return "1 minute ago";
+  } else {
+    return `${minutes} minutes ago`;
+  }
+}
+
+function updateLastEdited() {
+  const messagesLogs = document.getElementById("log-messages");
+  const lastEdited = new Date(localStorage.getItem("lastEdited")) || new Date();
+
+  const currentTime = new Date();
+  const timeDifference = Math.floor((currentTime - lastEdited) / (60 * 1000));
+
+  if (timeDifference < 60) {
+    messagesLogs.innerText = `Last edited: ${formatTimeDifference(timeDifference)}`;
+  } else {
+    const formattedDate = formatDate(lastEdited);
+    messagesLogs.innerText = `Last edited: ${formattedDate}`;
   }
 }
 
@@ -556,24 +590,10 @@ function formatDate(inputDate) {
 function getCurrentDate() {
   const currentDate = new Date();
 
-  const hours = currentDate.getHours().toString().padStart(2, "0");
-  const minutes = currentDate.getMinutes().toString().padStart(2, "0");
+  const formattedDate = formatDate(currentDate);
 
-  const formattedTime = `${hours}:${minutes}`;
-
-  const now = new Date();
-  const diffInMinutes = Math.floor((now - currentDate) / (60 * 1000));
-
-  if (now.toDateString() === currentDate.toDateString()) {
-    if (diffInMinutes <= 30) {
-      return formatTime(diffInMinutes);
-    } else {
-      return `${formattedTime}`;
-    }
-  } else {
-    const formattedDate = formatDate(currentDate);
     return `${formattedDate}`;
-  }
+  
 }
 
 
