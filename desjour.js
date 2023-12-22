@@ -363,11 +363,13 @@ document.addEventListener("DOMContentLoaded", function () {
       userSpan.textContent = ` ${capitalizeFirstLetter(user)}`;
     }
 
-    if (localStorage.getItem("lastEdited"))
+    if (localStorage.getItem("lastEdited")) {
       document.getElementById(
         "log-messages"
-      ).innerText = `Last edited: ${localStorage.getItem("lastEdited")
-  }`;
+      ).innerText = `Last edited: ${localStorage.getItem("lastEdited")}`;
+
+      setInterval(updateLastEdited, 60000);
+    }
   }
 
   function savedecisionsToLocalStorage() {
@@ -538,19 +540,19 @@ function editResponses() {
 
   messagesLogs.innerText =
     "Your responses were successfully loaded into the text fields. You can now edit.";
-  
+
   // Update last edited time initially
   updateLastEdited();
 
   document.getElementById("goingWell").focus();
-  
+
   // Set up the recurring update every minute
   setInterval(updateLastEdited, 60000);
 }
 
 function formatTime(minutes) {
   if (minutes === 1) {
-    return '1 minute ago';
+    return "1 minute ago";
   } else {
     return `${minutes} minutes ago`;
   }
@@ -570,12 +572,15 @@ function updateLastEdited() {
 
   const currentTime = new Date();
   const timeDifference = Math.floor((currentTime - lastEdited) / (60 * 1000));
+  console.log(timeDifference);
 
   if (timeDifference < 60) {
-    messagesLogs.innerText = `Last edited: ${formatTimeDifference(timeDifference)}`;
+    messagesLogs.innerText = `Last edited: ${formatTimeDifference(
+      timeDifference
+    )}`;
   } else {
     const formattedDate = formatDate(lastEdited);
-    messagesLogs.innerText = `Last edited: ${formattedDate}`;
+    if (messagesLogs) messagesLogs.innerText = `Last edited: ${formattedDate}`;
   }
 }
 
@@ -592,9 +597,7 @@ function getCurrentDate() {
 
   const formattedDate = formatDate(currentDate);
 
-    return `${formattedDate}`;
-  
+  return `${formattedDate}`;
 }
-
 
 displaySavedResponses();
