@@ -572,17 +572,17 @@ function updateLastEdited() {
 
   const currentTime = new Date();
   const timeDifference = Math.floor((currentTime - lastEdited) / (60 * 1000));
-  console.log(timeDifference);
+  const minutesDifference = timeDifference % 60; // Use modulo to get minutes in the range 0-59
+  console.log(minutesDifference)
 
-  if (timeDifference < 60) {
-    messagesLogs.innerText = `Last edited: ${formatTimeDifference(
-      timeDifference
-    )}`;
+  if (minutesDifference < 60) {
+    messagesLogs.innerText = `Last edited: ${minutesDifference} minutes ago`;
   } else {
     const formattedDate = formatDate(lastEdited);
     if (messagesLogs) messagesLogs.innerText = `Last edited: ${formattedDate}`;
   }
 }
+
 
 function formatDate(inputDate) {
   const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
