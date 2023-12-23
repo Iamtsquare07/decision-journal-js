@@ -571,15 +571,16 @@ function updateLastEdited() {
   const currentTime = new Date();
   const timeDifference = Math.floor((currentTime - lastEdited) / (60 * 1000));
   const minutesDifference = timeDifference % 60; 
-  console.log(minutesDifference)
 
   if (minutesDifference === 59) {
     const formattedDate = formatDate(lastEdited);
     if (messagesLogs) messagesLogs.innerText = `Last edited: ${formattedDate}`;
-  } else if(minutesDifference < 60) {
-    messagesLogs.innerText = `Last edited: ${minutesDifference} minutes ago`;
+  } else if (minutesDifference < 60) {
+    const formattedTime = formatTimeDifference(minutesDifference);
+    messagesLogs.innerText = `Last edited: ${formattedTime}`;
   }
 }
+
 
 
 function formatDate(inputDate) {
