@@ -541,12 +541,10 @@ function editResponses() {
   messagesLogs.innerText =
     "Your responses were successfully loaded into the text fields. You can now edit.";
 
-  // Update last edited time initially
   updateLastEdited();
 
   document.getElementById("goingWell").focus();
 
-  // Set up the recurring update every minute
   setInterval(updateLastEdited, 60000);
 }
 
