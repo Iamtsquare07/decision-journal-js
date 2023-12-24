@@ -547,6 +547,7 @@ li>i {
 
     .decision-tracking {
         padding: 20px;
+        min-height: 500px;
     }
 
     h1 {
