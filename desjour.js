@@ -566,22 +566,33 @@ function formatTimeDifference(minutes) {
 
 function updateLastEdited() {
   const messagesLogs = document.getElementById("log-messages");
-  const lastEdited = new Date(localStorage.getItem("lastEdited")) || new Date();
+  const lastEditedString = localStorage.getItem("lastEdited");
+  
+  if (!lastEditedString) {
+    // If there is no saved time, set the current time
+    const currentTime = new Date();
+    localStorage.setItem("lastEdited", currentTime.toISOString());
+    const formattedDate = formatDate(currentTime);
+    if (messagesLogs) messagesLogs.innerText = `Last edited: ${formattedDate}`;
+    return;
+  }
 
+  const lastEdited = new Date(lastEditedString);
   const currentTime = new Date();
   const timeDifference = Math.floor((currentTime - lastEdited) / (60 * 1000));
-  const minutesDifference = timeDifference % 60; 
+  const minutesDifference = timeDifference % 60;
 
-  if (minutesDifference === 59) {
-    const formattedDate = formatDate(lastEdited);
-    if (messagesLogs) messagesLogs.innerText = `Last edited: ${formattedDate}`;
-  } else if (minutesDifference < 60) {
+  if (timeDifference < 60) {
     const formattedTime = formatTimeDifference(minutesDifference);
     messagesLogs.innerText = `Last edited: ${formattedTime}`;
+  } else {
+    const formattedDate = formatDate(lastEdited);
+    messagesLogs.innerText = `Last edited: ${formattedDate}`;
   }
+
+  // Update the saved time to the current time
+  localStorage.setItem("lastEdited", currentTime.toISOString());
 }
-
-
 
 function formatDate(inputDate) {
   const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
