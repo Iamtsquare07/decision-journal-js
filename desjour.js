@@ -569,7 +569,6 @@ function updateLastEdited() {
   const lastEditedString = localStorage.getItem("lastEdited");
   
   if (!lastEditedString) {
-    // If there is no saved time, set the current time
     const currentTime = new Date();
     localStorage.setItem("lastEdited", currentTime.toISOString());
     const formattedDate = formatDate(currentTime);
@@ -590,7 +589,6 @@ function updateLastEdited() {
     messagesLogs.innerText = `Last edited: ${formattedDate}`;
   }
 
-  // Update the saved time to the current time
   localStorage.setItem("lastEdited", currentTime.toISOString());
 }
 
