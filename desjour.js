@@ -368,7 +368,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (userSpan.textContent.length < 1) {
       userSpan.textContent = ` ${capitalizeFirstLetter(user)}`;
     }
-    
   }
 
   function savedecisionsToLocalStorage() {
@@ -566,7 +565,7 @@ function formatTimeDifference(minutes) {
 function updateLastEdited() {
   const messagesLogs = document.getElementById("log-messages");
   const lastEditedString = localStorage.getItem("lastEdited");
-  
+
   if (!lastEditedString) {
     const currentTime = new Date();
     localStorage.setItem("lastEdited", currentTime.toISOString());
