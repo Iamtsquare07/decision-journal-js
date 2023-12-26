@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let thirdPositveCount = localStorage.getItem("thirdPositveCount") || false;
   let user = localStorage.getItem("htuser") || "";
   let userCaptured = localStorage.getItem("userCaptured") || false;
+  let editedInterval;
 
   function resetData() {
     localStorage.removeItem("firstPositveCount");
@@ -337,6 +338,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function loaddecisionsFromLocalStorage() {
+    if (localStorage.getItem("lastEdited")) {
+      updateLastEdited();
+      editedInterval = setInterval(updateLastEdited, 60000);
+    }
+
     const decisions = JSON.parse(localStorage.getItem("decisions")) || {};
     if (Object.keys(decisions).length === 0) {
       return;
@@ -362,14 +368,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (userSpan.textContent.length < 1) {
       userSpan.textContent = ` ${capitalizeFirstLetter(user)}`;
     }
-
-    if (localStorage.getItem("lastEdited")) {
-      document.getElementById(
-        "log-messages"
-      ).innerText = `Last edited: ${localStorage.getItem("lastEdited")}`;
-
-      setInterval(updateLastEdited, 60000);
-    }
+    
   }
 
   function savedecisionsToLocalStorage() {
@@ -545,7 +544,7 @@ function editResponses() {
 
   document.getElementById("goingWell").focus();
 
-  setInterval(updateLastEdited, 60000);
+  editedInterval = setInterval(updateLastEdited, 60000);
 }
 
 function formatTime(minutes) {
@@ -571,7 +570,7 @@ function updateLastEdited() {
   if (!lastEditedString) {
     const currentTime = new Date();
     localStorage.setItem("lastEdited", currentTime.toISOString());
-    const formattedDate = formatDate(currentTime);
+    const formattedDate = formatDateToDateString(currentTime);
     if (messagesLogs) messagesLogs.innerText = `Last edited: ${formattedDate}`;
     return;
   }
@@ -581,18 +580,16 @@ function updateLastEdited() {
   const timeDifference = Math.floor((currentTime - lastEdited) / (60 * 1000));
   const minutesDifference = timeDifference % 60;
 
-  if (timeDifference < 60) {
+  if (timeDifference < 59) {
     const formattedTime = formatTimeDifference(minutesDifference);
     messagesLogs.innerText = `Last edited: ${formattedTime}`;
   } else {
-    const formattedDate = formatDate(lastEdited);
+    const formattedDate = formatDateToDateString(lastEdited);
     messagesLogs.innerText = `Last edited: ${formattedDate}`;
   }
-
-  localStorage.setItem("lastEdited", currentTime.toISOString());
 }
 
-function formatDate(inputDate) {
+function formatDateToDateString(inputDate) {
   const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
   const day = inputDate.getDate().toString().padStart(2, "0");
   const year = inputDate.getFullYear();
@@ -602,10 +599,7 @@ function formatDate(inputDate) {
 
 function getCurrentDate() {
   const currentDate = new Date();
-
-  const formattedDate = formatDate(currentDate);
-
-  return `${formattedDate}`;
+  return `${currentDate}`;
 }
 
 displaySavedResponses();
